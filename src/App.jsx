@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import DragDropTable from "./src/components/dragDrop/DragDropTable";
+import DragDropTable from "./components/dragDrop/DragDropTable";
 
 function App() {
   const COLUMNS = 4;
@@ -19,4 +19,4 @@ const appStyle = () => ({
   gap: "10px",
 });
 
-ReactDOM.render(<App />, document.getElementById("root"));
+export default App;
