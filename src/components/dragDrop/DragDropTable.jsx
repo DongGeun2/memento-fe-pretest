@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import { getItems } from "../../utils";
+import { DragDropItem, DragDropList } from "./DragDropTable.styled";
 
 const DragDropTable = () => {
   const [items, setItems] = useState(getItems(10));
@@ -34,50 +35,32 @@ const DragDropTable = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
-          <div
+          <DragDropList
             {...provided.droppableProps}
+            $isDraggingOver={snapshot.isDraggingOver}
             ref={provided.innerRef}
-            style={getListStyle(snapshot.isDraggingOver)}
           >
             {items.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
-                  <div
+                  <DragDropItem
                     ref={provided.innerRef}
+                    $isDragging={snapshot.isDragging}
+                    $draggablePropsStyle={provided.draggableProps.style}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
-                    )}
                   >
                     {item.content}
-                  </div>
+                  </DragDropItem>
                 )}
               </Draggable>
             ))}
             {provided.placeholder}
-          </div>
+          </DragDropList>
         )}
       </Droppable>
     </DragDropContext>
   );
 };
-
-const GRID = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: "none",
-  padding: GRID * 2,
-  margin: `0 0 ${GRID}px 0`,
-  background: isDragging ? "lightgreen" : "grey",
-  ...draggableStyle,
-});
-
-const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: GRID,
-  width: 250,
-});
 
 export default DragDropTable;
