@@ -1,22 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import DragDropTable from "./components/dragDrop/DragDropTable";
+
+import Home from "./pages/home/Home";
 
 function App() {
-  const COLUMNS = 4;
-
-  return (
-    <div style={appStyle()}>
-      {new Array(COLUMNS).fill("").map((_, index) => (
-        <DragDropTable key={index} />
-      ))}
-    </div>
-  );
+  return <Home />;
 }
-
-const appStyle = () => ({
-  display: "flex",
-  gap: "10px",
-});
 
 export default App;
