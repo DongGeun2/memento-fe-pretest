@@ -1,13 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const DragDropTable = () => {
-  const getItems = (count) =>
-    Array.from({ length: count }, (v, k) => k).map((k) => ({
-      id: `item-${k}`,
-      content: `item ${k}`,
-    }));
+import { getItems } from "../../utils";
 
+const DragDropTable = () => {
   const [items, setItems] = useState(getItems(10));
 
   const reorder = (list, startIndex, endIndex) => {
